@@ -123,10 +123,10 @@ func (p Protocol) NumValue() (uint8, error) {
 func (p Protocol) SupportsPorts() bool {
 	num, err := p.NumValue()
 	if err == nil {
-		return num == 6 || num == 17
+		return num == 6 || num == 17 || num == 132
 	} else {
 		switch p.StrVal {
-		case ProtocolTCP, ProtocolUDP, ProtocolTCPV1, ProtocolUDPV1:
+		case ProtocolTCP, ProtocolUDP, ProtocolTCPV1, ProtocolUDPV1, ProtocolSCTP:
 			return true
 		}
 		return false

@@ -1028,6 +1028,14 @@ func init() {
 					Type: &V0,
 				},
 			}, true),
+		Entry("should allow Rule with dest ports and protocol type sctp",
+			api.Rule{
+				Action:   "Allow",
+				Protocol: protocolFromString("SCTP"),
+				Destination: api.EntityRule{
+					Ports: []numorstring.Port{numorstring.SinglePort(1)},
+				},
+			}, true),
 		Entry("should reject Rule with source ports and protocol type 7",
 			api.Rule{
 				Action:   "Allow",
@@ -1042,14 +1050,6 @@ func init() {
 				Protocol: protocolFromInt(100),
 				Source: api.EntityRule{
 					NotPorts: []numorstring.Port{numorstring.SinglePort(1)},
-				},
-			}, false),
-		Entry("should reject Rule with dest ports and protocol type tcp",
-			api.Rule{
-				Action:   "Allow",
-				Protocol: protocolFromString("SCTP"),
-				Destination: api.EntityRule{
-					Ports: []numorstring.Port{numorstring.SinglePort(1)},
 				},
 			}, false),
 		Entry("should reject Rule with dest !ports and protocol type udp",
